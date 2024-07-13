@@ -10,6 +10,7 @@ return {
                 "--compile-commands-dir=" .. root_directory, -- Set correct project root directory.
                 "--all-scopes-completion=true",              -- Suggest completion from other namespaces.
                 "--background-index=true",                   -- Index project in background and store data in .cache.
+                "--background-index-priority=normal",        -- Build index with same priority as interactive work.
                 "--clang-tidy=true",                         -- Report clang-tidy diagnostics through LSP.
                 "--completion-style=detailed",               -- Do not bundle multiple overloads in 1 completion.
                 "--fallback-style=mozilla",                  -- Least useless clang-format style for fallback.
