@@ -1,18 +1,22 @@
--- List of supported treesitter parsers and corresponding filetypes for which they work.
+-- List of desired treesitter parsers and corresponding filetypes for which they work.
+-- Mandatory ones: https://github.com/nvim-treesitter/nvim-treesitter/commit/f197ce27d91b4a2920b51a7ae0140acd294bf319
 local parsers_and_filetypes = {
-    ["vimdoc"]  = { "help" },  -- Vim :help pages.
-    ["vim"]     = { "vim" },   -- Legacy Vimscript files.
-    ["lua"]     = { "lua" },   -- Lua scripts.
-    ["bash"]    = { "sh" },    -- Bash scripts.
-    ["c"]       = { "c" },     -- C source files.
-    ["cpp"]     = { "cpp" },   -- C++ source files.
-    ["make"]    = { "make" },  -- Make files.
-    ["cmake"]   = { "cmake" }, -- CMake files.
-    ["json"]    = { "json" },  -- JSON files.
+    ["vimdoc"]          = { "help" }, -- Vim :help pages.
+    ["query"]           = { "query" }, -- Treesitter queries.
+    ["vim"]             = { "vim" }, -- Legacy Vimscript files.
+    ["lua"]             = { "lua" }, -- Lua scripts.
+    ["bash"]            = { "sh" }, -- Bash scripts.
+    ["c"]               = { "c" }, -- C source files.
+    ["cpp"]             = { "cpp" }, -- C++ source files.
+    ["make"]            = { "make" }, -- Make files.
+    ["cmake"]           = { "cmake" }, -- CMake files.
+    ["json"]            = { "json" }, -- JSON files.
 
     -- Embedded parsers.
-    ["comment"] = {}, -- For "TODO:", "FIXME:", etc. inside comments.
-    ["doxygen"] = {}, -- For Doxygen documentation in code comments.
+    ["markdown"]        = { "markdown" }, -- For Markdown files, as well as parsing LSP documentaiton preview.
+    ["markdown_inline"] = {},             -- For embedded Markdown syntax.
+    ["comment"]         = {},             -- For "TODO:", "FIXME:", etc. inside comments.
+    ["doxygen"]         = {},             -- For Doxygen documentation in code comments.
 }
 
 local treesitter_parsers = {}
