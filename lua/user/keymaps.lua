@@ -366,14 +366,22 @@ M.set_git_keymaps = function(buffer_number)
                             vim.cmd(":tabnew %")
 
                             -- React to opening of the gitsigns.show (below) and diff it.
+                            -- FIXME: Note that diff doesn't work until all 3 updates happened, so ignore first two.
+                            local callback_count = 0
                             vim.api.nvim_create_autocmd("User", {
                                 pattern = "GitSignsUpdate",
                                 callback = function()
+                                    callback_count = callback_count + 1
+                                    if (callback_count < 3) then
+                                        return false
+                                    end
+
                                     -- Diff blamed version of the file with its parent's version of the same file.
-                                    gitsigns.change_base(blamed_commit .. "^", false, gitsigns.diffthis)
-                                    -- gitsigns.diffthis(blamed_commit .. "^")
+                                    gitsigns.diffthis(blamed_commit .. "^")
+
+                                    -- Delete this autocommand after opening diff.
+                                    return true
                                 end,
-                                once = true
                             })
 
                             -- Open and focus blamed version of the file in new tab.
