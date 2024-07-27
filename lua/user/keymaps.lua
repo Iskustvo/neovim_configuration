@@ -362,34 +362,26 @@ M.set_git_keymaps = function(buffer_number)
                                 return
                             end
 
+                            -- Compute parent commit of the blamed one.
+                            local blamed_commit_parent = blamed_commit .. "^"
+                            local result = vim.system({ "git", "rev-parse", "--short", blamed_commit_parent }):wait()
+                            if result.code ~= 0 then
+                                print("Ignoring the command since commit " .. blamed_commit_parent .. " doesn't exist!")
+                                return
+                            end
+
+                            -- Use concrete commit SHA rather than SHA and ^ notation.
+                            blamed_commit_parent = result.stdout:match("%S+")
+
                             -- Create new tab which is viewing current version of the file.
                             vim.cmd(":tabnew %")
 
-                            -- React to opening of the gitsigns.show (below) and diff it.
-                            -- FIXME: Note that diff doesn't work until all 3 updates happened, so ignore first two.
-                            local callback_count = 0
-                            vim.api.nvim_create_autocmd("User", {
-                                pattern = "GitSignsUpdate",
-                                callback = function()
-                                    callback_count = callback_count + 1
-                                    if (callback_count < 3) then
-                                        return false
-                                    end
-
-                                    -- Diff blamed version of the file with its parent's version of the same file.
-                                    gitsigns.diffthis(blamed_commit .. "^")
-
-                                    -- Delete this autocommand after opening diff.
-                                    return true
-                                end,
-                            })
-
-                            -- Open and focus blamed version of the file in new tab.
-                            gitsigns.show(blamed_commit)
+                            -- Use new tab to show changes that blamed commit introduced.
+                            gitsigns.show(blamed_commit, function() gitsigns.diffthis(blamed_commit_parent) end)
                         end)
                 end)
         end,
-        { buffer = buffer_number, desc = "[Enter] the diff mode between current's line commit and its parent" })
+        { buffer = buffer_number, desc = "[Enter] new tab and show previous changes that modified current line" })
 
     -- Operator pending mode for git hunks.
     vim.keymap.set(
