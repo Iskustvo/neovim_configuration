@@ -38,7 +38,7 @@ return {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
-            "tamago324/cmp-zsh",
+            "Iskustvo/cmp-zsh",                    -- Original plugin seems unmaintained -> Fork and hack completion cache path.
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lsp-signature-help", -- TODO: Consider using https://github.com/ray-x/lsp_signature.nvim
         },
