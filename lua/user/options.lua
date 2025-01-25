@@ -44,5 +44,3 @@ vim.opt.sidescrolloff = 5 -- Make sure that 5 characters before/after current co
 vim.opt.whichwrap = "" -- Disable default over-the-line movement with (back)space in NORMAL and VISUAL modes.
 
 vim.opt.timeoutlen = 300 -- Speedup wait time for hitting the mapped key sequence like `jk` or `q:`.
-
-vim.opt.iskeyword:append("-") -- Make '-' part of the word sequence for 'w', 'e', '*' and other Vim motions.
