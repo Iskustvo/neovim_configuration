@@ -5,7 +5,18 @@ return {
         "Mofiqul/vscode.nvim", -- Use with "colorscheme vscode"
         lazy = false,
         priority = 1000,
-        config = function() require("vscode").load("dark") end,
+        config = function()
+            local vscode = require("vscode")
+
+            -- TODO: Check https://github.com/Mofiqul/vscode.nvim/pull/236.
+            vscode.setup({
+                color_overrides = {
+                    vscCursorDarkDark = '#222222'
+                }
+            })
+
+            vscode.load("dark")
+        end,
     },
 
     -- Visual Studio Code colorscheme writen in Vimscript, used for comparison.
