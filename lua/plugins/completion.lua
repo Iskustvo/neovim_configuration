@@ -121,30 +121,6 @@ return {
                     { { name = "cmdline" } }
                 ),
             })
-
-            -- When clnagd is attached, override completion ordering logic by considering clangd's scoring system.
-            vim.api.nvim_create_autocmd("LspAttach", {
-                pattern = { "*.c", "*.cpp", "*.h", "*.hpp" },
-                callback = function(args)
-                    if vim.lsp.get_client_by_id(args.data.client_id).name == "clangd" then
-                        cmp.setup.filetype(require("lspconfig").clangd.filetypes, {
-                            sorting = {
-                                comparators = {
-                                    cmp.config.compare.offset,
-                                    cmp.config.compare.exact,
-                                    cmp.config.compare.recently_used,
-                                    require("clangd_extensions.cmp_scores"),
-                                    cmp.config.compare.kind,
-                                    cmp.config.compare.sort_text,
-                                    cmp.config.compare.length,
-                                    cmp.config.compare.order,
-                                },
-                            },
-                        })
-                    end
-                end,
-                once = true,
-            })
         end,
     },
 

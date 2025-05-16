@@ -1,40 +1,40 @@
--- Generates a superset of nvim-lspconfig configuration for requested server by using common
--- (user/language_server_configurations/common.lua) configuration and overriding parts of it with custom
--- (user/language_server_configurations/[server_name].lua) configuration, if it exists.
--- It returns a table with 2 fields:
--- * 'lspconfig'  - Configuration that should be passed to nvim-lspconfig.
--- * 'extensions' - Additional configuration that is not standard and has meanings only for some servers (e.g. clangd).
-local function generate_server_configuration(server_name)
-    local server_configuration = {}
-    server_configuration.lspconfig = require("user.language_server_configurations.common")
+-- Set common configuration for all available language servers.
+-- This has lowest priority, so any language server can override parts of it.
+vim.lsp.config("*", require("user.lsp").common_configuration)
 
-    local custom_server_configuration_path = "user.language_server_configurations." .. server_name
-    local has_custom_configuration, custom_server_configuration = pcall(require, custom_server_configuration_path)
-    if has_custom_configuration then
-        server_configuration = vim.tbl_deep_extend("force", server_configuration, custom_server_configuration)
-    end
+-- Notify Neovim to enable configured language servers in order to start attaching them to buffers.
+-- Make sure to use "lua_ls" name for "lua-language-server", because lazydev.nvim doesn't work without it.
+-- https://github.com/folke/lazydev.nvim/discussions/28
+vim.lsp.enable({ "lua_ls", "clangd" })
 
-    return server_configuration
-end
-
--- Partial plugin specification that lazy.nvim will load at startup.
+--- @type LazySpec[]
 return {
-    -- LSP configurations.
+    -- Lua
     {
-        "neovim/nvim-lspconfig",
-        lazy = false,                      -- Plugin is already working lazily and that complicates things.
+        "folke/lazydev.nvim",
         dependencies = {
-            "folke/neodev.nvim",           -- Specific LSP extensions for Neovim development.
-            "p00f/clangd_extensions.nvim", -- Clangd extensions for LSP.
+            "hrsh7th/nvim-cmp",
+            opts = function(_, opts)
+                --TODO: Try to rewrite "cmp" configuration without callbacks in order to be able to apply
+                --      https://github.com/hrsh7th/nvim-cmp/discussions/670
+                opts.sources = opts.sources or {}
+                table.insert(opts.sources, {
+                    name = "lazydev",
+                    group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+                })
+            end,
         },
-        config = function()
-            -- Lua
-            require("neodev").setup() -- For whatever reason, Neodev is ALWAYS working only when it's set up right here.
-            require("lspconfig")["lua_ls"].setup(generate_server_configuration("lua_ls").lspconfig)
+        ft = "lua",
+        opts = {
+            lspconfig = false,        -- Don't use any "lspconfig" hacks since I no longer use that plugin.
+            library = { "lazy.nvim" } -- Preload "lazy.nvim" type/module completions before seeing it's "require"d.
+        },
+    },
 
-            -- C++
-            require("lspconfig")["clangd"].setup(generate_server_configuration("clangd").lspconfig)
-        end,
+    -- C++
+    {
+        "p00f/clangd_extensions.nvim",
+        lazy = true,
     },
 
     -- LSP progress visualization.
