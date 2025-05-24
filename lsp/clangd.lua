@@ -72,9 +72,10 @@ return {
         -- "--compile-commands-dir=root_dir"     -- NOTE: This flag is added dynamically in "root_dir" callback.
     },
     on_attach = function(client, buffer_number)
-        require("settings.lsp").common_configuration.on_attach(client, buffer_number)
+        require("settings.lsp").common_settings.on_attach(client, buffer_number)
 
         -- Load clangd-specific extensions to get commands like header switch - ClangdSwitchSourceHeader.
         require("clangd_extensions") -- TODO: Consider embedding clangd completion scoring.
     end,
+    capabilities = require("settings.lsp").common_settings.get_capabilities(),
 }

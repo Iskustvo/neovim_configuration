@@ -1,6 +1,7 @@
 require("settings.keymaps")
 require("settings.options")
 require("settings.diagnostics")
+require("settings.lsp")
 
 -- Automatically install Lazy if needed.
 local lazy_install_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

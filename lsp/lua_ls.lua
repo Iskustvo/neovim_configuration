@@ -63,5 +63,6 @@ return {
                 },
             },
         },
-    }
+    },
+    capabilities = require("settings.lsp").common_settings.get_capabilities(),
 }
