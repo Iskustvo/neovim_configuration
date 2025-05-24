@@ -26,9 +26,6 @@ require("lazy").setup({
     -- File explorer.
     { "kyazdani42/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons", config = true },
 
-    -- Tabs.
-    { "akinsho/bufferline.nvim",  dependencies = "kyazdani42/nvim-web-devicons" },
-
     { "folke/trouble.nvim",       dependencies = "kyazdani42/nvim-web-devicons" },
 }, {
     defaults = {
@@ -37,7 +34,6 @@ require("lazy").setup({
 })
 
 require("user.diagnostics")
-require("user.bufferline")
 
 -- Keep it at the bottom untill everything is configured and Tab, Enter and Shift+Tab are working correctly.
 require("user.keymaps")
