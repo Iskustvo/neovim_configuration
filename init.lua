@@ -1,3 +1,4 @@
+require("user.keymaps")
 require("user.options")
 require("user.diagnostics")
 
@@ -10,10 +11,6 @@ end
 
 -- Add Lazy's path in Run Time Path so that it can be loaded when required.
 vim.opt.rtp:prepend(lazy_install_path)
-
--- FIXME: Copied from keymaps.lua, remove when keymaps are independent and can be required at top.
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 -- Describe needed plugin dependencies for Lazy to manage.
 require("lazy").setup({
@@ -33,6 +30,3 @@ require("lazy").setup({
         lazy = false,
     },
 })
-
--- Keep it at the bottom untill everything is configured and Tab, Enter and Shift+Tab are working correctly.
-require("user.keymaps")

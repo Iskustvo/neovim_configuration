@@ -31,7 +31,7 @@ return {
     -- Completion engine.
     {
         "hrsh7th/nvim-cmp",
-        lazy = false,
+        event = "InsertEnter",
         dependencies = {
             "L3MON4D3/LuaSnip",
             "kyazdani42/nvim-web-devicons",

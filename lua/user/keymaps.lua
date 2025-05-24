@@ -73,12 +73,12 @@ end, { desc = "When applying '/' and '?' search requests, position first result 
 -- COMPLETION --
 ----------------
 
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-
-vim.keymap.set("s", "<Tab>", function() luasnip.jump(1) end, { desc = "Jump to next snippet placeholder" })
+vim.keymap.set("s", "<Tab>", function() require("luasnip").jump(1) end, { desc = "Jump to next snippet placeholder" })
 
 vim.keymap.set("i", "<Tab>", function()
+    local cmp = require("cmp")
+    local luasnip = require("luasnip")
+
     if cmp.visible() then
         cmp.select_next_item()
     elseif luasnip.jumpable(1) then
@@ -95,6 +95,7 @@ vim.keymap.set("i", "<Tab>", function()
 end, { desc = "Select next completion item or jump to next snippet placeholder or simulate tab insertion with spaces" })
 
 vim.keymap.set("c", "<Tab>", function()
+    local cmp = require("cmp")
     if cmp.visible() then
         cmp.select_next_item()
     else
@@ -105,21 +106,27 @@ end, { desc = "Select next completion item or trigger completion" })
 vim.keymap.set(
     "s",
     "<S-Tab>",
-    function() luasnip.jump(-1) end,
+    function() require("luasnip").jump(-1) end,
     { desc = "Jump to previous placeholder in snippet expansion history" }
 )
 
 vim.keymap.set("i", "<S-Tab>", function()
+    local cmp = require("cmp")
     if cmp.visible() then
         cmp.select_prev_item()
     else
-        luasnip.jump(-1)
+        require("luasnip").jump(-1)
     end
 end, { desc = "Select previous completion item or jump to previous placeholder in snippet expansion history" })
 
-vim.keymap.set("c", "<S-Tab>", cmp.select_prev_item, { desc = "Select previous completion item" })
+vim.keymap.set(
+    "c",
+    "<S-Tab>",
+    function() require("cmp").select_prev_item() end,
+    { desc = "Select previous completion item" })
 
 vim.keymap.set({ "s", "i" }, "<Enter>", function()
+    local cmp = require("cmp")
     if cmp.visible() and cmp.get_selected_entry() then
         cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
     else
@@ -127,17 +134,17 @@ vim.keymap.set({ "s", "i" }, "<Enter>", function()
     end
 end, { desc = "Confirm selected completion and potentially expand the snippet" })
 
-vim.keymap.set({ "i", "c" }, "<C-e>", cmp.abort, { desc = "[E]xit completion" })
+vim.keymap.set({ "i", "c" }, "<C-e>", function() require("cmp").abort() end, { desc = "[E]xit completion" })
 vim.keymap.set(
     { "i", "c" },
     "<C-u>",
-    function() cmp.scroll_docs(-5) end,
+    function() require("cmp").scroll_docs(-5) end,
     { desc = "Scroll completion documentation [U]p" }
 )
 vim.keymap.set(
     { "i", "c" },
     "<C-d>",
-    function() cmp.scroll_docs(5) end,
+    function() require("cmp").scroll_docs(5) end,
     { desc = "Scroll completion documentation [D]own" }
 )
 
