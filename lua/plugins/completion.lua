@@ -127,17 +127,10 @@ return {
     -- Auto pairing.
     {
         "windwp/nvim-autopairs",
-        lazy = false,
+        event = "InsertEnter",
         config = function()
-            -- TODO: Figure out proper way to link treesitter and autopairs.
-            require("nvim-autopairs").setup({ check_ts = package.loaded["nvim-treesitter"] })
-
-            -- TODO: Check if parantheses need to be embedded into "cmp" completion.
-            --       Use of this would require explicit confirmation of completion (unlike currently used Tab key).
-            -- local is_cmp_available, cmp = pcall(require, "cmp")
-            -- if (is_cmp_available) then
-            --     cmp.event:on("confirm_done", require('nvim-autopairs.completion.cmp').on_confirm_done())
-            -- end
+            require("nvim-autopairs").setup({ map_cr = false })
+            require("cmp").event:on("confirm_done", require('nvim-autopairs.completion.cmp').on_confirm_done())
         end,
     },
 }
