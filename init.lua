@@ -24,30 +24,12 @@ require("lazy").setup({
     { "numToStr/Comment.nvim",    config = true },
 
     -- File explorer.
-    { "kyazdani42/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons" },
+    { "kyazdani42/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons", config = true },
 
     -- Tabs.
     { "akinsho/bufferline.nvim",  dependencies = "kyazdani42/nvim-web-devicons" },
-    -- use "nvim-lualine/lualine.nvim"
-
-    -- Persisting toggling terminals.
-    { "akinsho/toggleterm.nvim" },
 
     { "folke/trouble.nvim",       dependencies = "kyazdani42/nvim-web-devicons" },
-    -- "rmagatti/goto-preview", -- TODO: Figure if needed after Trouble.nvim
-
-    { "rcarriga/nvim-dap-ui",     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-
-    -- TODO: Check out
-    -- use ghostbuster91/nvim-next
-    -- use kylechui/nvim-surround
-    -- use andymass/vim-matchup
-    -- use ziontee113/syntax-tree-surfer or drybalka/tree-climber.nvim
-    -- use "ahmedkhalf/project.nvim"
-    -- use "lukas-reineke/indent-blankline.nvim"
-    -- use "goolord/alpha-nvim"
-    -- use "folke/which-key.nvim"
-    -- use "gbprod/substitute.nvim" or "tommcdo/vim-exchange"
 }, {
     defaults = {
         lazy = false,
@@ -55,17 +37,7 @@ require("lazy").setup({
 })
 
 require("user.diagnostics")
-require("user.nvim-tree")
 require("user.bufferline")
-require("user.toggleterm")
-require("user.debug")
-
--- require "user.lualine"
--- require "user.project"
--- require "user.indentline"
--- require "user.alpha"
--- require "user.whichkey"
--- require "user.autocommands"
 
 -- Keep it at the bottom untill everything is configured and Tab, Enter and Shift+Tab are working correctly.
 require("user.keymaps")
