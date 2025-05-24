@@ -29,7 +29,7 @@ return {
             })
 
             require("gitsigns").setup({
-                on_attach = require("user.keymaps").set_git_keymaps
+                on_attach = require("settings.keymaps").set_git_keymaps
             })
         end,
     },

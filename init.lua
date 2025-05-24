@@ -1,6 +1,6 @@
-require("user.keymaps")
-require("user.options")
-require("user.diagnostics")
+require("settings.keymaps")
+require("settings.options")
+require("settings.diagnostics")
 
 -- Automatically install Lazy if needed.
 local lazy_install_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

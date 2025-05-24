@@ -32,7 +32,7 @@ M.common_configuration = {
 
     -- Perform common tasks when language server is attached to a buffer.
     on_attach = function(client, buffer_number)
-        require("user.keymaps").set_lsp_keymaps(buffer_number)
+        require("settings.keymaps").set_lsp_keymaps(buffer_number)
         enable_lsp_document_highlighting(client, buffer_number)
     end,
 }

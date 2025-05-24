@@ -1,6 +1,6 @@
 -- Set common configuration for all available language servers.
 -- This has lowest priority, so any language server can override parts of it.
-vim.lsp.config("*", require("user.lsp").common_configuration)
+vim.lsp.config("*", require("settings.lsp").common_configuration)
 
 -- Notify Neovim to enable configured language servers in order to start attaching them to buffers.
 -- Make sure to use "lua_ls" name for "lua-language-server", because lazydev.nvim doesn't work without it.
