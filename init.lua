@@ -1,4 +1,5 @@
 require("user.options")
+require("user.diagnostics")
 
 -- Automatically install Lazy if needed.
 local lazy_install_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -26,14 +27,12 @@ require("lazy").setup({
     -- File explorer.
     { "kyazdani42/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons", config = true },
 
-    { "folke/trouble.nvim",       dependencies = "kyazdani42/nvim-web-devicons" },
+    { "folke/trouble.nvim",       dependencies = "kyazdani42/nvim-web-devicons", config = true },
 }, {
     defaults = {
         lazy = false,
     },
 })
-
-require("user.diagnostics")
 
 -- Keep it at the bottom untill everything is configured and Tab, Enter and Shift+Tab are working correctly.
 require("user.keymaps")
