@@ -148,6 +148,13 @@ vim.keymap.set(
     { desc = "Scroll completion documentation [D]own" }
 )
 
+--------------
+-- TERMINAL --
+--------------
+
+vim.keymap.set({ "n", "t" }, "<C-t>", function() require("toggleterm").toggle() end, { desc = "Toggle Terminal." })
+vim.keymap.set("t", "<C-e>", "<C-\\><C-n>", { desc = "[E]xit TERMINAL mode and go to NORMAL." })
+
 -------------------
 -- QUICKFIX LIST --
 -------------------
