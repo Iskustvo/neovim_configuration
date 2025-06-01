@@ -13,7 +13,7 @@ vim.opt.pumheight = 10 -- Number of lines in the popup (auto completion) menu.
 
 vim.opt.showmode = false -- Don't output mode name in cmdline area every time the mode changes.
 
-vim.opt.showtabline = 2 -- Always show tabs
+vim.opt.showtabline = 0 -- Never show tabs.
 
 vim.opt.swapfile = false -- Don't create swap files.
 
