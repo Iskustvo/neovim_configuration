@@ -226,11 +226,9 @@ local function find_last_common_commit(repo_path, revision_1, revision_2)
     return response.stdout:match("%S+")
 end
 
-local M = {}
-
 -- Callback that enables Git keymaps only in specified buffer.
 -- This function is intended to be used when "gitsigns" attaches itself to a buffer.
-M.set_git_keymaps = function(buffer_number)
+local function set_git_keymaps(buffer_number)
     local gitsigns = require("gitsigns")
 
     -- Navigate hunks.
@@ -419,7 +417,7 @@ end
 
 -- Callback that enables LSP keymaps only in specified buffer.
 -- This function is intended to be used when specific buffers are attached to LSP servers.
-M.set_lsp_keymaps = function(buffer_number)
+local function set_lsp_keymaps(buffer_number)
     -- "Go to" keymaps for direct jumping.
     vim.keymap.set(
         "n",
@@ -504,5 +502,9 @@ M.set_lsp_keymaps = function(buffer_number)
         { buffer = buffer_number, desc = "Suggest [C]ode [A]ction on the current line." }
     )
 end
+
+local M = {}
+M.set_git_keymaps = set_git_keymaps
+M.set_lsp_keymaps = set_lsp_keymaps
 
 return M
