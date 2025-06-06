@@ -1,4 +1,5 @@
--- Partial plugin specification that lazy.nvim will load at startup.
+--- Partial plugin specification that lazy.nvim will load at startup.
+--- @type LazySpec[]
 return {
     {
         "nvim-telescope/telescope.nvim",
@@ -13,10 +14,11 @@ return {
 
             telescope.setup({
                 defaults = {
+                    mappings = require("settings.keymaps").create_default_telescope_mappings(),
+
                     scroll_strategy = "limit",
                     prompt_prefix = "",
                     selection_caret = " ",
-                    path_display = { "smart" },
                 },
             })
 

@@ -175,6 +175,70 @@ vim.keymap.set(
     { desc = "Print highlight group for symbol under cursor" }
 )
 
+---------------
+-- TELESCOPE --
+---------------
+
+vim.keymap.set("n", "<Leader>fa", function() require("telescope.builtin").builtin() end, { desc = "[F]ind [A]ll." })
+vim.keymap.set("n", "<Leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "[F]ind [H]elp." })
+vim.keymap.set("n", "<Leader>fb", function() require("telescope.builtin").buffers() end, { desc = "[F]ind [B]uffers." })
+vim.keymap.set("n", "<Leader>ff", function() require("telescope.builtin").find_files() end, { desc = "[F]ind [F]iles." })
+vim.keymap.set("n", "<Leader>fs", function() require("telescope.builtin").live_grep() end, { desc = "[F]ind [S]tring." })
+vim.keymap.set("n", "<Leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "[F]ind [K]eymaps." })
+
+local function create_default_telescope_mappings()
+    --- Create a table that explicitly tells Telescope not to override any of its default mappings.
+    local disabled_mappings = {}
+    for mode, mappings in pairs(require("telescope.mappings").default_mappings) do
+        disabled_mappings[mode] = {}
+        for key, _ in pairs(mappings) do
+            --- FIXME: Assigning "actions.select_default" to <Enter> doesn't work, but original Telescope mapping does.
+            ---        https://github.com/nvim-telescope/telescope.nvim/issues/2417
+            if key ~= "<CR>" then
+                disabled_mappings[mode][key] = false
+            end
+        end
+    end
+
+    --- Create a table with desired mappings.
+    local actions = require("telescope.actions")
+    local desired_mappings = {
+        ["i"] = {
+            --- ["<Enter>"] = actions.select_default, --- This is kept from original Telescope mappings.
+        },
+        ["n"] = {
+            --- ["<Enter>"] = actions.select_default, --- This is kept from original Telescope mappings.
+
+            ["?"] = actions.which_key,
+
+            ["H"] = actions.results_scrolling_left,
+            ["j"] = actions.move_selection_next,
+            ["k"] = actions.move_selection_previous,
+            ["L"] = actions.results_scrolling_right,
+
+            ["gg"] = actions.move_to_top,
+            ["G"] = actions.move_to_bottom,
+
+            ["<C-d>"] = actions.results_scrolling_down,
+            ["<C-u>"] = actions.results_scrolling_up,
+
+            ["<C-h>"] = actions.preview_scrolling_left,
+            ["<C-j>"] = actions.preview_scrolling_down,
+            ["<C-k>"] = actions.preview_scrolling_up,
+            ["<C-l>"] = actions.preview_scrolling_right,
+
+            ["t"] = actions.select_tab,
+            ["|"] = actions.select_vertical,
+            ["_"] = actions.select_horizontal,
+
+            ["q"] = actions.close,
+        }
+    }
+
+    --- Return desired mappings along with remaining indicators for Telescope not to override other stuff.
+    return vim.tbl_deep_extend("force", disabled_mappings, desired_mappings)
+end
+
 ---------
 -- GIT --
 ---------
@@ -489,7 +553,7 @@ local function set_lsp_keymaps(buffer_number)
     -- TODO: "Preview" keymaps for editable floating windows. (https://github.com/rmagatti/goto-preview)
 
     -- "Miscellaneous" keymaps.
-    vim.keymap.set("n", "<Leader>f", vim.lsp.buf.format, { buffer = buffer_number, desc = "[F]ormat current file." })
+    vim.keymap.set("n", "<C-f>", vim.lsp.buf.format, { buffer = buffer_number, desc = "[F]ormat current file." })
     vim.keymap.set(
         "n",
         "<Leader>r",
@@ -504,6 +568,7 @@ local function set_lsp_keymaps(buffer_number)
 end
 
 local M = {}
+M.create_default_telescope_mappings = create_default_telescope_mappings
 M.set_git_keymaps = set_git_keymaps
 M.set_lsp_keymaps = set_lsp_keymaps
 
