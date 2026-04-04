@@ -3,6 +3,8 @@ return {
     filetypes = { "lua" },
     root_markers = { ".git" },
     cmd = { "lua-language-server" },
+    on_attach = require("settings.lsp").common_settings.on_attach,
+    capabilities = require("settings.lsp").common_settings.capabilities,
     settings = {
         Lua = {
             -- TODO: Check why this doesn't work with vim.lsp.buf.format()
@@ -64,5 +66,4 @@ return {
             },
         },
     },
-    capabilities = require("settings.lsp").common_settings.get_capabilities(),
 }

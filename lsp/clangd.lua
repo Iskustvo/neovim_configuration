@@ -77,5 +77,5 @@ return {
         -- Load clangd-specific extensions to get commands like header switch - ClangdSwitchSourceHeader.
         require("clangd_extensions") -- TODO: Consider embedding clangd completion scoring.
     end,
-    capabilities = require("settings.lsp").common_settings.get_capabilities(),
+    capabilities = require("settings.lsp").common_settings.capabilities,
 }

@@ -1,7 +1,6 @@
 require("settings.keymaps")
 require("settings.options")
 require("settings.diagnostics")
-require("settings.lsp")
 
 -- Automatically install Lazy if needed.
 local lazy_install_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -31,3 +30,9 @@ require("lazy").setup({
         lazy = false,
     },
 })
+
+-- Notify Neovim to enable configured language servers in order to start attaching buffers to them.
+-- Note 1: This call has to be performed after "lazy" loads "nvim-cmp", due to computation of Neovim's capabilities.
+-- Note 2: Make sure to use "lua_ls" name for "lua-language-server", because lazydev.nvim doesn't work without it.
+--         https://github.com/folke/lazydev.nvim/discussions/28
+vim.lsp.enable({ "lua_ls", "clangd" })
