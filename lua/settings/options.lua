@@ -1,3 +1,12 @@
+-- :help vim.g
+
+-- Disable non-lua plugin providers.
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- :help vim.opt
 -- :help option-list
 
 vim.opt.mouse = "" -- Disable mouse interactions.
