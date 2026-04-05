@@ -26,9 +26,8 @@ require("lazy").setup({
 
     { "folke/trouble.nvim",       dependencies = "kyazdani42/nvim-web-devicons", config = true },
 }, {
-    defaults = {
-        lazy = false,
-    },
+    defaults = { lazy = false },
+    rocks = { enabled = false },
 })
 
 -- Notify Neovim to enable configured language servers in order to start attaching buffers to them.
