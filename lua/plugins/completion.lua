@@ -33,7 +33,6 @@ return {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
         dependencies = {
-            "L3MON4D3/LuaSnip",
             "kyazdani42/nvim-web-devicons",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -58,8 +57,8 @@ return {
 
                 mapping = {},
 
-                -- Use LuaSnip as NECESSARY snippet engine for LSP expansions.
-                snippet = { expand = function(args) require("luasnip").lsp_expand(args.body) end },
+                -- Use Neovim's native snippet engine for LSP expansions.
+                snippet = { expand = function(args) vim.snippet.expand(args.body) end },
 
                 -- Source engines used to populate completion.
                 sources = cmp.config.sources({

@@ -73,16 +73,15 @@ end, { desc = "When applying '/' and '?' search requests, position first result 
 -- COMPLETION --
 ----------------
 
-vim.keymap.set("s", "<Tab>", function() require("luasnip").jump(1) end, { desc = "Jump to next snippet placeholder" })
+vim.keymap.set("s", "<Tab>", function() vim.snippet.jump(1) end, { desc = "Jump to next snippet placeholder" })
 
 vim.keymap.set("i", "<Tab>", function()
     local cmp = require("cmp")
-    local luasnip = require("luasnip")
 
     if cmp.visible() then
         cmp.select_next_item()
-    elseif luasnip.jumpable(1) then
-        luasnip.jump(1)
+    elseif vim.snippet.active({ direction = 1 }) then
+        vim.snippet.jump(1)
     else
         -- Calculate how many spaces need to be inserted to mimic insertion of new Tab character.
         local column = vim.fn.col(".") - 1 -- Zero-based indexing.
@@ -106,7 +105,7 @@ end, { desc = "Select next completion item or trigger completion" })
 vim.keymap.set(
     "s",
     "<S-Tab>",
-    function() require("luasnip").jump(-1) end,
+    function() vim.snippet.jump(-1) end,
     { desc = "Jump to previous placeholder in snippet expansion history" }
 )
 
@@ -115,7 +114,7 @@ vim.keymap.set("i", "<S-Tab>", function()
     if cmp.visible() then
         cmp.select_prev_item()
     else
-        require("luasnip").jump(-1)
+        vim.snippet.jump(-1)
     end
 end, { desc = "Select previous completion item or jump to previous placeholder in snippet expansion history" })
 
