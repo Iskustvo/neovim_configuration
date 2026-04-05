@@ -32,6 +32,7 @@ end
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "master", -- Continue using "master" branch until "main" becomes stable.
         ft = supported_filetypes, -- Lazy load only when supported filetypes are opened.
         build = ":TSUpdate",
         config = function()
@@ -43,6 +44,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "master", -- Continue using "master" branch until "main" becomes stable.
         dependencies = "nvim-treesitter/nvim-treesitter",
         ft = supported_filetypes, -- Lazy load only when supported filetypes are opened.
         config = function()
