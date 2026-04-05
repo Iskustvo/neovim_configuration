@@ -1,16 +1,16 @@
 -- List of desired treesitter parsers and corresponding filetypes for which they work.
 -- Mandatory ones: https://github.com/nvim-treesitter/nvim-treesitter/commit/f197ce27d91b4a2920b51a7ae0140acd294bf319
 local parsers_and_filetypes = {
-    ["vimdoc"]          = { "help" }, -- Vim :help pages.
+    ["vimdoc"]          = { "help" },  -- Vim :help pages.
     ["query"]           = { "query" }, -- Treesitter queries.
-    ["vim"]             = { "vim" }, -- Legacy Vimscript files.
-    ["lua"]             = { "lua" }, -- Lua scripts.
-    ["bash"]            = { "sh" }, -- Bash scripts.
-    ["c"]               = { "c" }, -- C source files.
-    ["cpp"]             = { "cpp" }, -- C++ source files.
-    ["make"]            = { "make" }, -- Make files.
+    ["vim"]             = { "vim" },   -- Legacy Vimscript files.
+    ["lua"]             = { "lua" },   -- Lua scripts.
+    ["bash"]            = { "sh" },    -- Bash scripts.
+    ["c"]               = { "c" },     -- C source files.
+    ["cpp"]             = { "cpp" },   -- C++ source files.
+    ["make"]            = { "make" },  -- Make files.
     ["cmake"]           = { "cmake" }, -- CMake files.
-    ["json"]            = { "json" }, -- JSON files.
+    ["json"]            = { "json" },  -- JSON files.
 
     -- Embedded parsers.
     ["markdown"]        = { "markdown" }, -- For Markdown files, as well as parsing LSP documentaiton preview.
@@ -32,7 +32,7 @@ end
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = "master", -- Continue using "master" branch until "main" becomes stable.
+        branch = "master",        -- Continue using "master" branch until "main" becomes stable.
         ft = supported_filetypes, -- Lazy load only when supported filetypes are opened.
         build = ":TSUpdate",
         config = function()
@@ -44,7 +44,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        branch = "master", -- Continue using "master" branch until "main" becomes stable.
+        branch = "master",        -- Continue using "master" branch until "main" becomes stable.
         dependencies = "nvim-treesitter/nvim-treesitter",
         ft = supported_filetypes, -- Lazy load only when supported filetypes are opened.
         config = function()
