@@ -167,12 +167,7 @@ vim.keymap.set("n", "<S-Del>", "<Cmd>clast<Enter>", { desc = "Jump to last locat
 -- MISCELLANEOUS --
 -------------------
 
-vim.keymap.set(
-    "n",
-    "<Leader>h",
-    function() print(vim.inspect(vim.treesitter.get_captures_at_cursor(0))) end,
-    { desc = "Print highlight group for symbol under cursor" }
-)
+vim.keymap.set("n", "<Leader>h", vim.show_pos, { desc = "Print assigned [H]ighlight groups for symbol under cursor" })
 
 ---------------
 -- TELESCOPE --
